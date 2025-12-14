@@ -1,0 +1,27 @@
+.container {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 2rem;
+    /* height: auto; */
+    width: 100%;
+}
+
+.container .item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container .left {
+    display: grid;
+    grid-template-rows: 1.5 fr 2.5fr 1fr 0.5fr;
+    gap: 4px;
+    padding: 5px 0 5px 0;
+}
+
+.container .left .icons-flex {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    flex-basis: 100px;
+}
