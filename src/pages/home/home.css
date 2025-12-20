@@ -1,27 +1,50 @@
-.container {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 2rem;
-    /* height: auto; */
-    width: 100%;
+/* .vertical-icons {
+    position: absolute;
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+    gap: 20px;
+} */
+
+@keyframes fadeInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
-.container .item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* @keyframes float {
+    0%, 100% {
+        opacity: 0;
+        transform: translateX(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(-10px);
+    }
+} */
+
+.animated-text {
+    animation: fadeInLeft 1s ease-out forwards;
 }
 
-.container .left {
-    display: grid;
-    grid-template-rows: 1.5 fr 2.5fr 1fr 0.5fr;
-    gap: 4px;
-    padding: 5px 0 5px 0;
+.hero-image {
+    max-width: 300px;
+    transition: transform 0.3s, opacity 0.5s;
+    opacity: 0;
+    animation: fadeInLeft 1s ease-out forwards 0.5s;
+    /* animation-fill-mode: forwards;
+    animation-delay: 0.5s;
+    animation-name: fadeInLeft, float;
+    animation-duration: 1s, 3s;
+    animation-timing-function: ease-out, ease-in-out;
+    animation-iteration-count: 1, infinite; */
 }
 
-.container .left .icons-flex {
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    flex-basis: 100px;
+.hero-image:hover {
+    transform: scaled(1.05);
 }

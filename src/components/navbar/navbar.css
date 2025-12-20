@@ -13,3 +13,49 @@
         font-size: 1rem;
     }
 }
+
+.nav-icon-wrapper {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #0e0e0f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.nav-icon-wrapper svg {
+    font-size: 20px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+
+.nav-icon-wrapper:hover {
+    background-color: #0d6efd;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(13, 110, 253, 0.3);
+}
+
+.nav-icon-wrapper:hover svg {
+    color: #fff;
+}
+
+.nav-divider {
+    width: 1px;
+    height: 28px;
+    background-color: rgba(0, 0, 0, 0.3);
+    margin: 0 12px;
+}
+
+@media (max-width: 991px) {
+    .nav-icon-wrapper {
+        width: 34px;
+        height: 34px;
+    }
+
+    .nav-icon-wrapper svg {
+        font-size: 18px;
+    }
+}
