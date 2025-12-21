@@ -1,20 +1,35 @@
-const SkillSkeleton = () => {
+const SkillsSkeleton = () => {
   return (
-    <div className="container mt-5">
-      <div className="placeholder-glow">
-        <h1 className="placeholder col-4 mb-4"></h1>
-        <p className="placeholder col-8"></p>
-        <p className="placeholder col-6"></p>
-        <p className="placeholder col-7"></p>
+    <div className="container py-5 mt-5">
+      <div className="text-center mb-5 placeholder-glow">
+        <h1 className="placeholder col-3 mx-auto"></h1>
+      </div>
 
-        <div className="d-flex gap-3 mt-4">
-          <span className="placeholder rounded-circle" style={{ width: 40, height: 40 }}></span>
-          <span className="placeholder rounded-circle" style={{ width: 40, height: 40 }}></span>
-          <span className="placeholder rounded-circle" style={{ width: 40, height: 40 }}></span>
+      <div className="row">
+        {/* Left skeleton */}
+        <div className="col-md-3 mb-4">
+          <div className="card p-3 placeholder-glow">
+            {[1, 2, 3, 4].map(i => (
+              <div key={i} className="placeholder col-8 mb-3"></div>
+            ))}
+          </div>
+        </div>
+
+        {/* Right skeleton */}
+        <div className="col-md-9">
+          <div className="row g-3">
+            {[1, 2, 3, 4, 5, 6].map(i => (
+              <div key={i} className="col-sm-6 col-lg-4">
+                <div className="card p-4 placeholder-glow">
+                  <div className="placeholder col-6"></div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default SkillSkeleton;
+export default SkillsSkeleton;

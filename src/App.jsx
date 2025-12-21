@@ -11,33 +11,34 @@ const Projects = lazy(() => import( "./pages/projects/Projects"));
 import HomeSkeleton from "./pages/home/HomeSkeleton";
 import SkillSkeleton from "./pages/skills/SkillSkeleton";
 import ProjectSkeleton from "./pages/projects/ProjectSkeleton";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
 
   return (
-    	<>
-		<Suspense fallback={<HomeSkeleton />}>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route 
-					path="/skills" 
-					element={
-						<Suspense fallback={<SkillSkeleton />}>
-							<Skills />
-						</Suspense>
-					}
-				/>
-				<Route 
-					path="/projects" 
-					element={
-						<Suspense fallback={<ProjectSkeleton />}>
-							<Projects />
-						</Suspense>
-					} 
-				/>
-            </Routes>
-		</Suspense>
-        </>
+    	<ErrorBoundary>
+			<Suspense fallback={<HomeSkeleton />}>
+            	<Routes>
+                	<Route path="/" element={<Home />} />
+                	<Route 
+						path="/skills" 
+						element={
+							<Suspense fallback={<SkillSkeleton />}>
+								<Skills />
+							</Suspense>
+						}
+					/>
+					<Route 
+						path="/projects" 
+						element={
+							<Suspense fallback={<ProjectSkeleton />}>
+								<Projects />
+							</Suspense>
+						} 
+					/>
+            	</Routes>
+			</Suspense>
+        </ErrorBoundary>
   	);
 };
 
