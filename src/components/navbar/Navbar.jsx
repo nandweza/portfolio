@@ -59,21 +59,21 @@ const Navbar = () => {
                 </div>
                 <div className="nav-divider d-none d-lg-block"></div>
                 <div className="d-flex align-items-center">
-                    <a href="" target="_blank" rel="noreferrer">
+                    <a href="https://www.linkedin.com/in/nandwezaallan/" target="_blank" rel="noreferrer">
                         <span className="nav-icon-wrapper" data-bs-toggle="tooltip" title="LinkedIn">
                             <LinkedInIcon />
                         </span>
                     </a>         
-                    <a href="" target="_blank" rel="noreferrer">
+                    <a href="https://github.com/nandweza" target="_blank" rel="noreferrer">
                         <span className="nav-icon-wrapper" data-bs-toggle="tooltip" title="GitHub">
                             <GitHubIcon />
                         </span>
                     </a> 
-                    <a href="" target="_blank" rel="noreferrer">
+                    <NavLink to="/contact">
                         <span className="nav-icon-wrapper" data-bs-toggle="tooltip" title="Contact Me">
                             <MailIcon />
                         </span>
-                    </a> 
+                    </NavLink> 
                 </div>
             </div>
         </nav>

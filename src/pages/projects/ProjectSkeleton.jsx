@@ -3,6 +3,7 @@ const ProjectSkeleton = () => {
     	<div className="container py-5 mini-vh-100">
       		<div className="text-center mb-5 placeholder-glow">
         		<h1 className="placeholder col-3 mx-auto mb-3"></h1>
+				<br />
 				<p className="placeholder col-5 mx-auto"></p>
       		</div>
 
