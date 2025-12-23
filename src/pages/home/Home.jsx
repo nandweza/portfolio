@@ -9,7 +9,7 @@ const Home = () => {
         <>
             <Navbar />
             <div className="container">
-                <div className="row min-vh-100 align-items-center">
+                <div className="row min-vh-100 align-items-center g-3">
                     <div className="col-12 col-md-7 d-flex flex-column justify-content-center align-content-center mb-4 mb-md-0 animated-text">
                         <div className="flex-column justify-content-center align-item-center">
                             <h1>I'am Allan Kindarara</h1>
