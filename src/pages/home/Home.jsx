@@ -13,8 +13,8 @@ const Home = () => {
                 <div className="row min-vh-100 align-items-center g-3">
                     <div className="col-12 col-md-7 d-flex flex-column justify-content-center align-content-center mb-4 mb-md-0 animated-text">
                         <div className="flex-column justify-content-center align-item-center">
-                            <h1>I'am Allan Kindarara</h1>
-                            <h3>Software Engineer | FullStack Developer</h3>
+                            <h1><span className="text-danger">I'm</span> Allan Kindarara</h1>
+                            <h3><span className="text-danger">Software Engineer</span> | <span className="text-danger">FullStack Developer</span></h3>
                             <p>
                                 Hi, I'm Allan, a detail-oriented Software Engineer and FullStack Developer passionate about building 
                                 innovative solutions, solving complex problems, and continously learning new technologies. 
@@ -22,8 +22,8 @@ const Home = () => {
                             </p>
                             <input 
                                 type="button" 
-                                value="Resume" 
-                                className="btn btn-primary btn-lg mb-3 shadow" 
+                                value="RESUME" 
+                                className="btn btn-danger btn-lg mb-3 shadow fw-bold shadow-sm" 
                             />
                         </div>
                     </div>
