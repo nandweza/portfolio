@@ -9,7 +9,11 @@ const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light px-4">
             <NavLink to="/" className="navbar-brand">
-                <h1>{"<AK />"}</h1>
+                <h1>
+                    <span className="text-danger">&lt;</span>
+                    <span className="text-dark">AK</span>
+                    <span className="text-danger"> /&gt;</span>
+                </h1>
             </NavLink>
             <button 
                 className="navbar-toggler" 
