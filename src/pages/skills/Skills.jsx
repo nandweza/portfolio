@@ -2,6 +2,7 @@ import "./skills.css";
 import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/footer/Footer";
 import SkillsData from "../../data/SkillsData";
+import SkillCard from "../../components/SkillCard";
 import { useState } from "react";
 
 const Skills = () => {
@@ -20,7 +21,7 @@ const Skills = () => {
             <div className="container py-5 min-vh-100">
                 <div className="text-center mb-5">
                     <h1 className="fw-bold">My Skills</h1>
-                    <p className="text-muted">
+                    <p className="text-danger">
                         Technologies, tools, and frameworks I work with
                     </p>
                 </div>
@@ -29,7 +30,7 @@ const Skills = () => {
                     <div className="col-md-3 mb-4">
                         <div className="card shadow-sm">
                             <div className="card-body">
-                                <h5 className="mb-3">Categories</h5>
+                                <h5 className="mb-3 text-danger">Categories</h5>
 
                                 {[
                                     { label: "All", value: "all" },
@@ -47,7 +48,7 @@ const Skills = () => {
                                 ].map(item => (
                                     <div key={item.value} className="form-check mb-2">
                                         <input
-                                            className="form-check-input"
+                                            className="form-check-input radio-color"
                                             type="radio"
                                             name="skillCategory"
                                             id={item.value}
@@ -68,14 +69,7 @@ const Skills = () => {
                     <div className="col-md-9">
                         <div className="row g-3">
                             {filteredSkills.map((skill, index) => (
-                                <div key={index} className="col-sm-6 col-lg-4">
-                                    <div className="card h-100 shadow-sm">
-                                        <div className="card-body d-flex align-items-center gap-3">
-                                            <span className="fs-3">{skill.icon}</span>
-                                            <h6 className="mb-0">{skill.name}</h6>
-                                        </div>
-                                    </div>
-                                </div>
+                                <SkillCard key={index} {...skill} />
                             ))}
 
                             {filteredSkills.length === 0 && (
