@@ -2,6 +2,7 @@ import "./home.css";
 import React from "react";
 import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/footer/Footer";
+import Allan from "../../assets/allan.jpg";
 
 const Home = () => {
 
@@ -15,20 +16,20 @@ const Home = () => {
                             <h1>I'am Allan Kindarara</h1>
                             <h3>Software Engineer | FullStack Developer</h3>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                                Hi, I'm Allan, a detail-oriented Software Engineer and FullStack Developer passionate about building 
+                                innovative solutions, solving complex problems, and continously learning new technologies. 
+                                I am currently an undergraduate Computer Science student at College of Western Idaho.
                             </p>
                             <input 
                                 type="button" 
-                                value="My Resume" 
+                                value="Resume" 
                                 className="btn btn-primary btn-lg mb-3 shadow" 
                             />
                         </div>
                     </div>
                     <div className="col-12 col-md-5 d-flex justify-content-center align-items-center position-relative">
                         <img 
-                            src="https://nandweza.github.io/allan/images/allan.png" 
+                            src={Allan}
                             alt="hero image" 
                             width="100%" 
                             className="img-fluid rounded-circle shadow hero-image" 

@@ -1,25 +1,17 @@
 import "./skills.css";
 import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/footer/Footer";
+import SkillsData from "../../data/SkillsData";
 import { useState } from "react";
 
 const Skills = () => {
-    const skillsData = [
-        { name: "React", category: "frameworks", icon: "⚛️" },
-        { name: "Bootstrap", category: "frameworks", icon: "🅱️" },
-        { name: "JavaScript", category: "languages", icon: "🟨" },
-        { name: "HTML", category: "languages", icon: "📄" },
-        { name: "CSS", category: "languages", icon: "🎨" },
-        { name: "Git", category: "tools", icon: "🔧" },
-        { name: "Figma", category: "tools", icon: "🎨" },
-    ];
 
     const [category, setCategory] = useState("all");
 
     const filteredSkills = 
         category === "all" 
-        ? skillsData 
-        : skillsData.filter(skill => skill.category === category);
+        ? SkillsData 
+        : SkillsData.filter(skill => skill.category === category);
 
     
     return (
@@ -41,8 +33,16 @@ const Skills = () => {
 
                                 {[
                                     { label: "All", value: "all" },
+                                    { label: "Code", value: "code" },
+                                    { label: "Markup", value: "markup" },
+                                    { label: "Scripting", value: "scripting" },
+                                    { label: "Style Sheet", value: "stylesheet" },
                                     { label: "Frameworks", value: "frameworks" },
-                                    { label: "Languages", value: "languages" },
+                                    { label: "DataBases", value: "database" },
+                                    { label: "Backend", value: "backend" },
+                                    { label: "Frontend", value: "frontend" },
+                                    { label: "Hosting", value: "hosting" },
+                                    { label: "Operating Systems", value: "os" },
                                     { label: "Tools", value: "tools" },
                                 ].map(item => (
                                     <div key={item.value} className="form-check mb-2">
