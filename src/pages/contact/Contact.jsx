@@ -11,7 +11,7 @@ const Contact = () => {
                 <div class="w-100" style={{ maxWidth: "500px" }}>
                     <div className="text-center mb-4">
                         <h1 className="fw-bold">Contact me</h1>
-                        <p className="text-muted">
+                        <p className="text-danger">
                             Let's get in touch
                         </p>
                     </div>
@@ -56,7 +56,7 @@ const Contact = () => {
                                 <div className="d-grid">   
                                     <button 
                                         type="submit" 
-                                        class="btn btn-primary btn-lg rounded-pill"
+                                        class="btn btn-danger btn-lg rounded-pill"
                                     >
                                         Send Message
                                     </button>
