@@ -73,11 +73,11 @@ const Navbar = () => {
                             <GitHubIcon />
                         </span>
                     </a> 
-                    <NavLink to="/contact">
+                    <a href="mailto:allannandweza@gmail.com">
                         <span className="nav-icon-wrapper" data-bs-toggle="tooltip" title="Contact Me">
                             <MailIcon />
                         </span>
-                    </NavLink> 
+                    </a> 
                 </div>
             </div>
         </nav>

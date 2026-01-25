@@ -1,6 +1,4 @@
 import './App.css';
-// import { useState } from 'react'
-import React from "react";
 import { Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from "react";
 

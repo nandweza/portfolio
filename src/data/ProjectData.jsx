@@ -37,7 +37,7 @@ const ProjectData = [
         title: "My Porfolio React App",
         description: "My Personal portfolio website built with React + Vite, showcases my projects and skills.",
         techStack : [ "JavaScript", "HTML", "CSS", "React", "Bootstrap5", "Material UI", "Vite"],
-        demoUrl: "#",
+        demoUrl: "https://allannandweza.dev",
         codeUrl: "https://github.com/nandweza/portfolio"
     },
     // {
