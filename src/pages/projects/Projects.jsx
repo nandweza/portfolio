@@ -1,25 +1,227 @@
+// src/pages/projects/Projects.jsx
+import { useState, useEffect, useCallback } from "react";
 import "./projects.css";
 import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/footer/Footer";
-import ProjectData from "../../data/ProjectData";
 import ProjectCard from "../../components/ProjectCard";
+import ProjectForm from "../../components/ProjectForm";
+import { useAuth } from "../../context/AuthContext";
+
+const API_URL = "http://localhost:3000/api/project";
 
 const Projects = () => {
+    const { isLoggedIn, token, logout } = useAuth();
 
+    const [projects, setProjects] = useState([]); // always an array → .map is always safe
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [editingId, setEditingId] = useState(null); // _id of project being edited, or null
+    const [creating, setCreating] = useState(false);  // is the "new project" form open?
+
+    // ---------- READ ----------
+    const fetchProjects = useCallback(async () => {
+        try {
+            setError(null);
+            const res = await fetch(API_URL);
+            if (!res.ok) throw new Error(`Server responded ${res.status}`);
+            const data = await res.json();
+
+            setProjects(Array.isArray(data) ? data : data.data ?? []);
+        } catch (err) {
+            console.error("Failed to load projects:", err);
+            setError("Could not load projects. Is the API running on port 3000?");
+            setProjects([]);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        fetchProjects();
+    }, [fetchProjects]);
+
+    // ---------- WRITE (all require the token) ----------
+    // const authJsonHeaders = {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${token}`,
+    // };
+
+    const handleCreate = async (fields) => {
+        try {
+            const formData = new FormData();
+
+            formData.append("title", fields.title);
+            formData.append("description", fields.description);
+            formData.append("liveUrl", fields.liveUrl);
+            formData.append("codeUrl", fields.codeUrl);
+
+            fields.techStack.forEach((tech) =>
+                formData.append("techStack", tech)
+            );
+
+            formData.append("image", fields.image);
+
+            const res = await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                body: formData,
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) throw new Error(data.message);
+
+            setCreating(false);
+            fetchProjects();
+        } catch (err) {
+            console.error(err);
+            alert(err.message); // fine for now — swap for a toast later
+        }
+    };
+
+    const handleUpdate = async (id, fields) => {
+        try {
+            const formData = new FormData();
+
+            formData.append("title", fields.title);
+            formData.append("description", fields.description);
+            formData.append("liveUrl", fields.liveUrl);
+            formData.append("codeUrl", fields.codeUrl);
+
+            fields.techStack.forEach((tech) =>
+                formData.append("techStack", tech)
+            );
+
+            if (fields.image instanceof File) {
+                formData.append("image", fields.image);
+            }
+
+            const res = await fetch(`${API_URL}/${id}`, {
+                method: "PATCH",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                body: formData,
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) throw new Error(data.message);
+
+            setEditingId(null);
+            fetchProjects();
+        } catch (err) {
+            console.error(err);
+            alert(err.message);
+        }
+    };
+
+    const handleDelete = async (id) => {
+        // a guard against accidental clicks — deletes are forever
+        if (!window.confirm("Delete this project? This cannot be undone.")) return;
+        try {
+            const res = await fetch(`${API_URL}/${id}`, {
+                method: "DELETE",
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            if (!res.ok) throw new Error(`Delete failed (${res.status})`);
+            fetchProjects();
+        } catch (err) {
+            console.error(err);
+            alert(err.message);
+        }
+    };
+
+    // ---------- RENDER ----------
     return (
         <>
             <Navbar />
             <div className="container py-5 min-vh-100">
                 <div className="text-center mb-5">
                     <h1 className="fw-bold">My Projects</h1>
-                    <p className="text-danger">
-                        These are some of my projects....
-                    </p>
+                    <p className="text-danger">These are some of my projects....</p>
                 </div>
+
+                {/* admin toolbar — only exists for the logged-in user */}
+                {isLoggedIn && (
+                    <div className="d-flex justify-content-between align-items-center mb-4">
+                        {!creating ? (
+                            <button
+                                className="btn btn-primary"
+                                onClick={() => setCreating(true)}
+                            >
+                                + Add Project
+                            </button>
+                        ) : (
+                            <span className="text-muted">Adding a new project…</span>
+                        )}
+                        <button
+                            className="btn btn-sm btn-outline-secondary"
+                            onClick={logout}
+                        >
+                            Log out
+                        </button>
+                    </div>
+                )}
+
+                {creating && (
+                    <div className="mb-4">
+                        <ProjectForm
+                            onSave={handleCreate}
+                            onCancel={() => setCreating(false)}
+                        />
+                    </div>
+                )}
+
+                {loading && <p className="text-center">Loading projects…</p>}
+                {error && <p className="text-center text-danger">{error}</p>}
+                {!loading && !error && projects.length === 0 && (
+                    <p className="text-center text-muted">No projects yet.</p>
+                )}
+
                 <div className="row g-4">
-                    {ProjectData.map((project, index) => (
-                        <div className="col-lg-6 col-md-12">
-                            <ProjectCard key={index} {...project} />
+                    {projects.map((project) => (
+                        // key uses MongoDB's _id — stable across re-renders and deletes
+                        <div className="col-lg-6 col-md-12" key={project._id}>
+                            {editingId === project._id ? (
+                                <ProjectForm
+                                    project={project}
+                                    onSave={(fields) => handleUpdate(project._id, fields)}
+                                    onCancel={() => setEditingId(null)}
+                                />
+                            ) : (
+                                <>
+                                    {/* explicit mapping: API field names → card prop names.
+                                        If the API ever changes, this is the ONE place to update. */}
+                                    <ProjectCard
+                                        imgUrl={project.image}
+                                        alt={project.title}
+                                        title={project.title}
+                                        description={project.description}
+                                        techStack={project.techStack}
+                                        demoUrl={project.liveUrl}
+                                        codeUrl={project.codeUrl}
+                                    />
+                                    {isLoggedIn && (
+                                        <div className="mt-2">
+                                            <button
+                                                className="btn btn-sm btn-outline-secondary me-2"
+                                                onClick={() => setEditingId(project._id)}
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                className="btn btn-sm btn-outline-danger"
+                                                onClick={() => handleDelete(project._id)}
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
+                                    )}
+                                </>
+                            )}
                         </div>
                     ))}
                 </div>

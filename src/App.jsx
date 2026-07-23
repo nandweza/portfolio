@@ -6,6 +6,7 @@ const Home = lazy(() => import( "./pages/home/Home"));
 const Skills = lazy(() => import( "./pages/skills/Skills"));
 const Projects = lazy(() => import( "./pages/projects/Projects"));
 const Contact = lazy(() => import("./pages/contact/Contact"));
+const Login = lazy(() => import("./pages/login/Login"));
 
 import HomeSkeleton from "./pages/home/HomeSkeleton";
 import SkillSkeleton from "./pages/skills/SkillSkeleton";
@@ -15,7 +16,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
 
-  return (
+	return (
 		<div className="d-flex flex-column min-vh-100">
     		<ErrorBoundary>
 				<Suspense fallback={<HomeSkeleton />}>
@@ -45,11 +46,12 @@ function App() {
 								</Suspense>
 							}
 						/>
+						<Route path="/login" element={<Login />} />
             		</Routes>
 				</Suspense>
         	</ErrorBoundary>
 		</div>
-  	);
+	);
 };
 
 export default App

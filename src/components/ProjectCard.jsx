@@ -1,15 +1,20 @@
-const ProjectCard = (
-    { 
-        imgUrl, alt, title, description, techStack, demoUrl, codeUrl 
-    }) => {
-
+// src/components/ProjectCard.jsx
+const ProjectCard = ({
+    imgUrl,
+    alt,
+    title,
+    description,
+    techStack,
+    demoUrl,
+    codeUrl,
+}) => {
     return (
         <div className="card h-100 shadow-sm border-0">
             <div className="row g-0 h-100">
                 <div className="col-md-6">
-                    <img 
+                    <img
                         src={imgUrl}
-                        alt={alt}
+                        alt={alt ?? title}
                         className="img-fluid h-100 w-100 rounded-start object-fit-cover"
                     />
                 </div>
@@ -22,17 +27,29 @@ const ProjectCard = (
                             {description}
                         </p>
                         <div className="mb-3">
-                            {techStack.map((tech, i) => (
+                            {/* (techStack ?? []) — if a record is missing this
+                                field, render no badges instead of crashing */}
+                            {(techStack ?? []).map((tech, i) => (
                                 <span key={i} className="badge bg-secondary me-2">
                                     {tech}
                                 </span>
                             ))}
                         </div>
                         <div className="d-flex gap-2 mt-auto">
-                            <a href={demoUrl} target="_blank" rel="noreferrer" className="btn btn-danger btn-sm">
+                            <a
+                                href={demoUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="btn btn-danger btn-sm"
+                            >
                                 Live Demo
                             </a>
-                            <a href={codeUrl} target="_blank" rel="noreferrer" className="btn btn-outline-dark btn-sm">
+                            <a
+                                href={codeUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="btn btn-outline-dark btn-sm"
+                            >
                                 GitHub
                             </a>
                         </div>
