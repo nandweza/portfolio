@@ -6,6 +6,7 @@ import Footer from "../../components/footer/Footer";
 import HomeForm from "../../components/HomeForm";
 import { useAuth } from "../../context/AuthContext";
 import { data } from "react-router-dom";
+import HomeSkeleton from "./HomeSkeleton";
 
 const API_URL = "http://localhost:3000/api/home";
 
@@ -21,7 +22,6 @@ const Home = () => {
 
     const fetchHomeData = useCallback(async () => {
         try {
-            setError(null);
             const res = await fetch(API_URL);
             if (!res.ok) throw new Error(`Server responded ${res.status}`);
             const data = await res.json();
@@ -30,14 +30,12 @@ const Home = () => {
                 ? data.data[0] 
                 : data.data;
 
-            setHomeData(home ?? null);
-        } catch (err) {
-            console.log("Failed to load data:", err);
-            setError("Could not load home data...");
-            setHomeData([]);
-        } finally {
+            // setHomeData(home ?? null);
             setLoading(false);
-        }
+        } catch (err) {
+            console.log("Loading data...");
+            setTimeout(fetchHomeData, 2000);
+        } 
     }, []);
 
     useEffect(() => {
@@ -125,115 +123,123 @@ const Home = () => {
         }
     };
 
+    if (loading || !homeData) {
+        return (
+            <>
+                <Navbar />
+                <HomeSkeleton />
+                <Footer />
+            </>
+        );
+    }
+
     return (
         <>
             <Navbar />
             <div className="container">
-                {/* admin toolbar — only exists for the logged-in user */}
-                    {isLoggedIn && (
-                        <div className="d-flex justify-content-between align-items-center mb-4">
-                            {!homeData && !creating && (
-                                <button
-                                    className="btn btn-primary"
-                                    onClick={() => setCreating(true)}
-                                >
-                                    + Add About Me
-                                </button>
-                            )}
-
-                            {creating && (
-                                <span className="text-muted">Adding data…</span>
-                            )}
-
+                {isLoggedIn && (
+                    <div className="d-flex justify-content-between align-items-center mb-4">
+                        {!homeData && !creating && (
                             <button
-                                className="btn btn-sm btn-outline-secondary"
-                                onClick={logout}
+                                className="btn btn-primary"
+                                onClick={() => setCreating(true)}
                             >
-                                Log out
+                                + Add About Me
                             </button>
-                        </div>
-                    )}
+                        )}
 
-                    {creating && (
-                        <div className="mb-4">
+                        {creating && (
+                            <span className="text-muted">Adding data…</span>
+                        )}
+
+                        <button
+                            className="btn btn-sm btn-outline-secondary"
+                            onClick={logout}
+                        >
+                            Log out
+                        </button>
+                    </div>
+                )}
+
+                {creating && (
+                    <div className="mb-4">
+                        <HomeForm
+                            onSave={handleCreate}
+                            onCancel={() => setCreating(false)}
+                        />
+                    </div>
+                )}
+
+                {loading && <p className="text-center">Loading data…</p>}
+                {error && <p className="text-center text-danger">{error}</p>}
+                {!loading && !error && data.length === 0 && (
+                    <p className="text-center text-muted">No data yet.</p>
+                )}
+
+                {homeData && (
+                    // key uses MongoDB's _id — stable across re-renders and deletes
+                    <div className="" key={homeData._id}>
+                        {editingId === homeData._id ? (
                             <HomeForm
-                                onSave={handleCreate}
-                                onCancel={() => setCreating(false)}
+                                data={homeData}
+                                onSave={(fields) => handleUpdate(homeData._id, fields)}
+                                onCancel={() => setEditingId(null)}
                             />
-                        </div>
-                    )}
-
-                    {loading && <p className="text-center">Loading data…</p>}
-                    {error && <p className="text-center text-danger">{error}</p>}
-                    {!loading && !error && data.length === 0 && (
-                        <p className="text-center text-muted">No data yet.</p>
-                    )}
-
-                    {homeData && (
-                        // key uses MongoDB's _id — stable across re-renders and deletes
-                        <div className="" key={homeData._id}>
-                            {editingId === homeData._id ? (
-                                <HomeForm
-                                    data={homeData}
-                                    onSave={(fields) => handleUpdate(homeData._id, fields)}
-                                    onCancel={() => setEditingId(null)}
-                                />
-                            ) : (
+                        ) : (
                                 
-                                <div className="row min-vh-100 align-items-center g-3">
-                                    <div className="col-12 col-md-7 d-flex flex-column justify-content-center align-content-center mb-4 mb-md-0 animated-text">
-                                        <div className="flex-column justify-content-center align-item-center">
-                                            <h1>
-                                                <span className="text-danger">I'm </span>
-                                                {homeData.name}
-                                            </h1>
-                                            <h3 className="text-danger">
-                                                {homeData.title}
-                                            </h3>
-                                            <p>
-                                                {homeData.description}
-                                            </p>
-                                            <a
-                                                // href="https://docs.google.com/document/d/1BCDMl7r7OC7jqQ9YEA4blLL8cW6n4wJ6/edit?usp=sharing&ouid=111459362459709066324&rtpof=true&sd=true"
-                                                href={homeData.resume}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="btn btn-danger btn-lg mb-3 shadow fw-bold shadow-sm"
-                                            >
-                                                RESUME
-                                            </a>
-                                        </div>
+                            <div className="row min-vh-100 align-items-center g-3">
+                                <div className="col-12 col-md-7 d-flex flex-column justify-content-center align-content-center mb-4 mb-md-0 animated-text">
+                                    <div className="flex-column justify-content-center align-item-center">
+                                        <h1>
+                                            <span className="text-danger">I'm </span>
+                                            {homeData.name}
+                                        </h1>
+                                        <h3 className="text-danger">
+                                            {homeData.title}
+                                        </h3>
+                                        <p>
+                                            {homeData.description}
+                                        </p>
+                                        <a
+                                            // href="https://docs.google.com/document/d/1BCDMl7r7OC7jqQ9YEA4blLL8cW6n4wJ6/edit?usp=sharing&ouid=111459362459709066324&rtpof=true&sd=true"
+                                            href={homeData.resume}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="btn btn-danger btn-lg mb-3 shadow fw-bold shadow-sm"
+                                        >
+                                            RESUME
+                                        </a>
                                     </div>
-                                    <div className="col-12 col-md-5 d-flex justify-content-center align-items-center position-relative">
-                                        <img
-                                            src={homeData.image}
-                                            alt={homeData.name}
-                                            width="100%"
-                                            className="img-fluid rounded-circle shadow hero-image"
-                                            style={{ maxWidth: "300px" }}
-                                        />
-                                    </div>
-                                    {isLoggedIn && (
-                                        <div className="mt-3">
-                                            <button
-                                                className="btn btn-sm btn-outline-secondary me-2"
-                                                onClick={() => setEditingId(homeData._id)}
-                                            >
-                                                Edit
-                                            </button>
-                                            <button
-                                                className="btn btn-sm btn-outline-danger"
-                                                onClick={() => handleDelete(homeData._id)}
-                                            >
-                                                Delete
-                                            </button>
-                                        </div>
-                                    )}
                                 </div>
-                            )}
-                        </div>
-                    )}
-                
+                                <div className="col-12 col-md-5 d-flex justify-content-center align-items-center position-relative">
+                                    <img
+                                        src={homeData.image}
+                                        alt={homeData.name}
+                                        width="100%"
+                                        className="img-fluid rounded-circle shadow hero-image"
+                                        style={{ maxWidth: "300px" }}
+                                    />
+                                </div>
+                                {isLoggedIn && (
+                                    <div className="mt-3">
+                                        <button
+                                            className="btn btn-sm btn-outline-secondary me-2"
+                                            onClick={() => setEditingId(homeData._id)}
+                                        >
+                                            Edit
+                                        </button>
+                                        <button
+                                            className="btn btn-sm btn-outline-danger"
+                                            onClick={() => handleDelete(homeData._id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
             <Footer />
         </>

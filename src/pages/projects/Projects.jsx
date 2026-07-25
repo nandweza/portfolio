@@ -6,34 +6,31 @@ import Footer from "../../components/footer/Footer";
 import ProjectCard from "../../components/ProjectCard";
 import ProjectForm from "../../components/ProjectForm";
 import { useAuth } from "../../context/AuthContext";
+import ProjectSkeleton from "./ProjectSkeleton";
 
 const API_URL = "http://localhost:3000/api/project";
 
 const Projects = () => {
     const { isLoggedIn, token, logout } = useAuth();
 
-    const [projects, setProjects] = useState([]); // always an array → .map is always safe
+    const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [editingId, setEditingId] = useState(null); // _id of project being edited, or null
-    const [creating, setCreating] = useState(false);  // is the "new project" form open?
+    const [creating, setCreating] = useState(false);
 
     // ---------- READ ----------
     const fetchProjects = useCallback(async () => {
         try {
-            setError(null);
             const res = await fetch(API_URL);
             if (!res.ok) throw new Error(`Server responded ${res.status}`);
             const data = await res.json();
 
             setProjects(Array.isArray(data) ? data : data.data ?? []);
         } catch (err) {
-            console.error("Failed to load projects:", err);
-            setError("Could not load projects. Is the API running on port 3000?");
-            setProjects([]);
-        } finally {
-            setLoading(false);
-        }
+            console.error("Loading projects....");
+            setTimeout(fetchProjects, 2000);
+        } 
     }, []);
 
     useEffect(() => {
@@ -41,11 +38,6 @@ const Projects = () => {
     }, [fetchProjects]);
 
     // ---------- WRITE (all require the token) ----------
-    // const authJsonHeaders = {
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${token}`,
-    // };
-
     const handleCreate = async (fields) => {
         try {
             const formData = new FormData();
@@ -77,7 +69,7 @@ const Projects = () => {
             fetchProjects();
         } catch (err) {
             console.error(err);
-            alert(err.message); // fine for now — swap for a toast later
+            alert(err.message);
         }
     };
 
@@ -134,6 +126,16 @@ const Projects = () => {
         }
     };
 
+    if (loading || ! projects) {
+        return (
+            <>
+                <Navbar />
+                <ProjectSkeleton />
+                <Footer />
+            </>
+        )
+    }
+
     // ---------- RENDER ----------
     return (
         <>
@@ -144,7 +146,6 @@ const Projects = () => {
                     <p className="text-danger">These are some of my projects....</p>
                 </div>
 
-                {/* admin toolbar — only exists for the logged-in user */}
                 {isLoggedIn && (
                     <div className="d-flex justify-content-between align-items-center mb-4">
                         {!creating ? (
@@ -193,8 +194,6 @@ const Projects = () => {
                                 />
                             ) : (
                                 <>
-                                    {/* explicit mapping: API field names → card prop names.
-                                        If the API ever changes, this is the ONE place to update. */}
                                     <ProjectCard
                                         imgUrl={project.image}
                                         alt={project.title}
