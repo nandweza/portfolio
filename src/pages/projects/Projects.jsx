@@ -126,11 +126,40 @@ const Projects = () => {
         }
     };
 
-    if (loading || ! projects) {
+    if (loading && projects.length === 0) {
         return (
             <>
                 <Navbar />
+                {isLoggedIn && (
+                    <div className="d-flex justify-content-between align-items-center mb-4">
+                        {!creating ? (
+                            <button
+                                className="btn btn-primary"
+                                onClick={() => setCreating(true)}
+                            >
+                                + Add Project
+                            </button>
+                        ) : (
+                            <span className="text-muted">Adding a new project…</span>
+                        )}
+                        <button
+                            className="btn btn-sm btn-outline-secondary"
+                            onClick={logout}
+                        >
+                            Log out
+                        </button>
+                    </div>
+                )}
+                {creating && (
+                    <div className="mb-4">
+                        <ProjectForm
+                            onSave={handleCreate}
+                            onCancel={() => setCreating(false)}
+                        />
+                    </div>
+                )}
                 <ProjectSkeleton />
+                <p className="text-center text-muted">No projects to display...</p>
                 <Footer />
             </>
         )
@@ -176,10 +205,11 @@ const Projects = () => {
                     </div>
                 )}
 
-                {loading && <p className="text-center">Loading projects…</p>}
-                {error && <p className="text-center text-danger">{error}</p>}
+                {/* {loading && <p className="text-center">Loading projects…</p>}
+                {error && <p className="text-center text-danger">{error}</p>} */}
                 {!loading && !error && projects.length === 0 && (
                     <p className="text-center text-muted">No projects yet.</p>
+                    // <ProjectSkeleton />
                 )}
 
                 <div className="row g-4">

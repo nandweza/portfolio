@@ -1,9 +1,8 @@
 import { useState } from "react";
 
 /**
- * One form, two jobs:
- *  - Create: render with no `project` prop → all fields start empty
- *  - Edit:   render with `project` → fields start pre-filled
+ *  - Create: render with no `project` prop; all fields start empty
+ *  - Edit:   render with `project`; fields start pre-filled
  *
  * Field names in onSave() match the API/database:
  *   title, description, image, liveUrl, codeUrl, techStack
@@ -15,8 +14,6 @@ const ProjectForm = ({ project, onSave, onCancel }) => {
     const [liveUrl, setLiveUrl] = useState(project?.liveUrl ?? "");
     const [codeUrl, setCodeUrl] = useState(project?.codeUrl ?? "");
 
-    // techStack lives as an ARRAY in the database but is edited as a
-    // comma-separated STRING in this input. Join on the way in…
     const [techStackText, setTechStackText] = useState(
         (project?.techStack ?? []).join(", ")
     );
@@ -35,8 +32,6 @@ const ProjectForm = ({ project, onSave, onCancel }) => {
             image,
             liveUrl: liveUrl.trim(),
             codeUrl: codeUrl.trim(),
-            // …and split back into a clean array on the way out.
-            // "html, css , react" → ["html", "css", "react"]
             techStack: techStackText
                 .split(",")
                 .map((t) => t.trim())

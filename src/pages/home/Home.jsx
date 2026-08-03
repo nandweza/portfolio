@@ -30,11 +30,13 @@ const Home = () => {
                 ? data.data[0] 
                 : data.data;
 
-            // setHomeData(home ?? null);
+            setHomeData(home ?? null);
             setLoading(false);
         } catch (err) {
             console.log("Loading data...");
-            setTimeout(fetchHomeData, 2000);
+            setTimeout(() => {
+                fetchHomeData();
+            }, 2000);
         } 
     }, []);
 
@@ -127,16 +129,6 @@ const Home = () => {
         return (
             <>
                 <Navbar />
-                <HomeSkeleton />
-                <Footer />
-            </>
-        );
-    }
-
-    return (
-        <>
-            <Navbar />
-            <div className="container">
                 {isLoggedIn && (
                     <div className="d-flex justify-content-between align-items-center mb-4">
                         {!homeData && !creating && (
@@ -148,9 +140,7 @@ const Home = () => {
                             </button>
                         )}
 
-                        {creating && (
-                            <span className="text-muted">Adding data…</span>
-                        )}
+                        
 
                         <button
                             className="btn btn-sm btn-outline-secondary"
@@ -169,19 +159,23 @@ const Home = () => {
                         />
                     </div>
                 )}
+                <HomeSkeleton />
+                <Footer />
+            </>
+        );
+    }
 
-                {loading && <p className="text-center">Loading data…</p>}
-                {error && <p className="text-center text-danger">{error}</p>}
-                {!loading && !error && data.length === 0 && (
-                    <p className="text-center text-muted">No data yet.</p>
-                )}
+    return (
+        <>
+            <Navbar />
+            <div className="container">
 
                 {homeData && (
                     // key uses MongoDB's _id — stable across re-renders and deletes
                     <div className="" key={homeData._id}>
                         {editingId === homeData._id ? (
                             <HomeForm
-                                data={homeData}
+                                home={homeData}
                                 onSave={(fields) => handleUpdate(homeData._id, fields)}
                                 onCancel={() => setEditingId(null)}
                             />
@@ -201,7 +195,6 @@ const Home = () => {
                                             {homeData.description}
                                         </p>
                                         <a
-                                            // href="https://docs.google.com/document/d/1BCDMl7r7OC7jqQ9YEA4blLL8cW6n4wJ6/edit?usp=sharing&ouid=111459362459709066324&rtpof=true&sd=true"
                                             href={homeData.resume}
                                             target="_blank"
                                             rel="noopener noreferrer"
@@ -229,10 +222,16 @@ const Home = () => {
                                             Edit
                                         </button>
                                         <button
-                                            className="btn btn-sm btn-outline-danger"
+                                            className="btn btn-sm btn-outline-danger me-2"
                                             onClick={() => handleDelete(homeData._id)}
                                         >
                                             Delete
+                                        </button>
+                                        <button
+                                            className="btn btn-sm btn-outline-secondary"
+                                            onClick={logout}
+                                        >
+                                            Log out
                                         </button>
                                     </div>
                                 )}

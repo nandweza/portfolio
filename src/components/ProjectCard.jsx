@@ -1,4 +1,3 @@
-// src/components/ProjectCard.jsx
 const ProjectCard = ({
     imgUrl,
     alt,
@@ -27,8 +26,6 @@ const ProjectCard = ({
                             {description}
                         </p>
                         <div className="mb-3">
-                            {/* (techStack ?? []) — if a record is missing this
-                                field, render no badges instead of crashing */}
                             {(techStack ?? []).map((tech, i) => (
                                 <span key={i} className="badge bg-secondary me-2">
                                     {tech}

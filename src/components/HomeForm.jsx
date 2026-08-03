@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-const HomeForm = ({ homeData, onSave, onCancel }) => {
-    const [name, setName] = useState(homeData?.name ?? "");
-    const [title, setTitle] = useState(homeData?.title ?? "");
-    const [description, setDescription] = useState(homeData?.description ?? "");
-    const [resume, setResume] = useState(homeData?.resume ?? "");
+const HomeForm = ({ home, onSave, onCancel }) => {
+    const [name, setName] = useState(home?.name ?? "");
+    const [title, setTitle] = useState(home?.title ?? "");
+    const [description, setDescription] = useState(home?.description ?? "");
+    const [resume, setResume] = useState(home?.resume ?? "");
     const [image, setImage] = useState(null);
 
     const [saving, setSaving] = useState(false);
@@ -27,7 +27,7 @@ const HomeForm = ({ homeData, onSave, onCancel }) => {
 
     return (
         <div className="card p-3 shadow-sm">
-            <h5 className="mb-3">{homeData ? "Edit About Me" : "New About Me"}</h5>
+            <h5 className="mb-3">{home ? "Edit About Me" : "New About Me"}</h5>
 
             <label className="form-label small mb-1">Name *</label>
             <input
