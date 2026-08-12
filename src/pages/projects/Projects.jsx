@@ -1,4 +1,3 @@
-// src/pages/projects/Projects.jsx
 import { useState, useEffect, useCallback } from "react";
 import "./projects.css";
 import Navbar from "../../components/navbar/Navbar";

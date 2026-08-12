@@ -38,14 +38,14 @@ function App() {
 								</Suspense>
 							} 
 						/>
-						<Route 
+						{/* <Route 
 							path="/contact"
 							element={
 								<Suspense fallback={<ContactSkeleton />}>
 									<Contact />
 								</Suspense>
 							}
-						/>
+						/> */}
 						<Route path="/login" element={<Login />} />
             		</Routes>
 				</Suspense>
