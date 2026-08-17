@@ -37,4 +37,22 @@ export const iconOptions = [
     { label: "Machine Learning", value: "FaBrain" },
     { label: "Cybersecurity", value: "FaShieldAlt" },
     { label: "Data Science", value: "FaChartLine" },
+    { label: "Tools", value: "FaTools"},
 ]
+
+export const categories = [
+    { label: "All", value: "all" },
+    { label: "Programming Languages", value: "code" },
+    { label: "Markup", value: "markup" },
+    { label: "Scripting", value: "scripting" },
+    { label: "Style Sheet", value: "stylesheet" },
+    { label: "Frameworks", value: "frameworks" },
+    { label: "DataBases", value: "database" },
+    { label: "Machine learning / Data Science", value: "machine"},
+    { label: "Cybersecurity", value: "cybersecurity"},
+    { label: "Backend", value: "backend" },
+    { label: "Frontend", value: "frontend" },
+    { label: "Hosting", value: "hosting" },
+    { label: "Operating Systems", value: "os" },
+    { label: "Tools", value: "tools" },
+];

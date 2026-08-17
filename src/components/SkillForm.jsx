@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { iconOptions } from "./IconOPtions";
+import { iconOptions, categories } from "./IconOPtions";
 
 const SkillForm = ({ skill, onSave, onCancel }) => {
     const [name, setName] = useState(skill?.name ?? "");
@@ -29,7 +29,7 @@ const SkillForm = ({ skill, onSave, onCancel }) => {
         <div className="card p-3 shadow-sm">
             <h5 className="mb-3">{skill ? "Edit Skill" : "New Skill"}</h5>
 
-            <label className="form-label small mb-1">Name *</label>
+            <label className="form-label small mb-1">Skill Name *</label>
             <input
                 className="form-control mb-2"
                 value={name}
@@ -37,20 +37,29 @@ const SkillForm = ({ skill, onSave, onCancel }) => {
                 placeholder="e.g. Python"
             />
 
-            <label className="form-label small mb-1">Category *</label>
-            <input
+            <label className="form-label small mb-1">Skill Category *</label>
+            <select
                 className="form-control mb-2"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                placeholder="e.g. frontend"
-            />
-
+            >
+                <option value="">Select category</option>
+                {categories.map((category) => (
+                    <option
+                        key={category.value}
+                        value={category.value}
+                    >
+                        {category.label}
+                    </option>
+                ))}
+            </select>
+            <label className="form-label small mb-1">Skill Icon *</label>
             <select
                 className="form-select mb-2"
                 value={iconKey}
                 onChange={(e) => setIconKey(e.target.value)}
             >
-                <option value="">Select an icon *</option>
+                <option value="">Select an icon</option>
                 {iconOptions.map((icon) => (
                     <option
                         key={icon.value}

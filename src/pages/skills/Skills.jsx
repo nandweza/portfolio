@@ -6,25 +6,9 @@ import SkillCard from "../../components/SkillCard";
 import SkillForm from "../../components/SkillForm";
 import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { categories } from "../../components/IconOPtions";
 
 const API_URL = "http://localhost:3000/api/skill";
-
-const categories = [
-    { label: "All", value: "all" },
-    { label: "Programming Languages", value: "code" },
-    { label: "Markup", value: "markup" },
-    { label: "Scripting", value: "scripting" },
-    { label: "Style Sheet", value: "stylesheet" },
-    { label: "Frameworks", value: "frameworks" },
-    { label: "DataBases", value: "database" },
-    { label: "Machine learning / Data Science", value: "machine"},
-    { label: "Cybersecurity", value: "cybersecurity"},
-    { label: "Backend", value: "backend" },
-    { label: "Frontend", value: "frontend" },
-    { label: "Hosting", value: "hosting" },
-    { label: "Operating Systems", value: "os" },
-    { label: "Tools", value: "tools" },
-];
 
 const Skills = () => {
     const { isLoggedIn, token, logout } = useAuth();
@@ -246,7 +230,7 @@ const Skills = () => {
                             {filteredSkills.map(
                                 (skill) => (
                                     <div
-                                        className="col-12 col-sm-6 col-lg-4 w-100"
+                                        className="col-xl-3 col-lg-4 col-md-6"
                                         key={skill._id}
                                     >
                                         {editingId === skill._id ? (

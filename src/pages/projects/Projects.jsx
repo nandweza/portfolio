@@ -136,7 +136,7 @@ const Projects = () => {
                                 className="btn btn-primary"
                                 onClick={() => setCreating(true)}
                             >
-                                + Add Project
+                                + Add Project 
                             </button>
                         ) : (
                             <span className="text-muted">Adding a new project…</span>
@@ -204,11 +204,8 @@ const Projects = () => {
                     </div>
                 )}
 
-                {/* {loading && <p className="text-center">Loading projects…</p>}
-                {error && <p className="text-center text-danger">{error}</p>} */}
                 {!loading && !error && projects.length === 0 && (
                     <p className="text-center text-muted">No projects yet.</p>
-                    // <ProjectSkeleton />
                 )}
 
                 <div className="row g-4">

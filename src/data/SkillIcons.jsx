@@ -18,6 +18,7 @@ import {
     FaShieldAlt,
     FaChartLine,
     FaCode,
+    FaTools,
 } from "react-icons/fa";
 
 import {
@@ -64,6 +65,7 @@ export const skillIcons = {
     FaBrain,
     FaShieldAlt,
     FaChartLine,
+    FaTools,
     SiTypescript,
     SiMongodb,
     SiMysql,
