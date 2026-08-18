@@ -5,13 +5,11 @@ import { lazy, Suspense } from "react";
 const Home = lazy(() => import( "./pages/home/Home"));
 const Skills = lazy(() => import( "./pages/skills/Skills"));
 const Projects = lazy(() => import( "./pages/projects/Projects"));
-const Contact = lazy(() => import("./pages/contact/Contact"));
 const Login = lazy(() => import("./pages/login/Login"));
 
 import HomeSkeleton from "./pages/home/HomeSkeleton";
 import SkillSkeleton from "./pages/skills/SkillSkeleton";
 import ProjectSkeleton from "./pages/projects/ProjectSkeleton";
-import ContactSkeleton from "./pages/contact/ContactSkeleton";
 import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
@@ -38,14 +36,6 @@ function App() {
 								</Suspense>
 							} 
 						/>
-						{/* <Route 
-							path="/contact"
-							element={
-								<Suspense fallback={<ContactSkeleton />}>
-									<Contact />
-								</Suspense>
-							}
-						/> */}
 						<Route path="/login" element={<Login />} />
             		</Routes>
 				</Suspense>

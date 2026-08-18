@@ -8,7 +8,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { categories } from "../../components/IconOPtions";
 
-const API_URL = "http://localhost:3000/api/skill";
+const API_URL = "https://portfolio-api-emkd.onrender.com/api/skill";
 
 const Skills = () => {
     const { isLoggedIn, token, logout } = useAuth();

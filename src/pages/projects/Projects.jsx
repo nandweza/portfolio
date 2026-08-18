@@ -7,7 +7,7 @@ import ProjectForm from "../../components/ProjectForm";
 import { useAuth } from "../../context/AuthContext";
 import ProjectSkeleton from "./ProjectSkeleton";
 
-const API_URL = "http://localhost:3000/api/project";
+const API_URL = "https://portfolio-api-emkd.onrender.com/api/project";
 
 const Projects = () => {
     const { isLoggedIn, token, logout } = useAuth();

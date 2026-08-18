@@ -9,11 +9,11 @@ const SkillCard = ({ name, iconKey, category, iconColor }) => {
             <div className="card-body d-flex align-items-center gap-3">
                 {Icon && (
                     <Icon
-                        size={30}
+                        size={38}
                         color={iconColor}
                     />
                 )}
-                <span className="fw-medium">{name}</span>
+                <span className="fw-medium fs-5">{name}</span>
             </div>
         </div>
     );

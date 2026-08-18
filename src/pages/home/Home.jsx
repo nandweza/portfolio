@@ -8,7 +8,7 @@ import { useAuth } from "../../context/AuthContext";
 import { data } from "react-router-dom";
 import HomeSkeleton from "./HomeSkeleton";
 
-const API_URL = "http://localhost:3000/api/home";
+const API_URL = "https://portfolio-api-emkd.onrender.com/api/home";
 
 const Home = () => {
 

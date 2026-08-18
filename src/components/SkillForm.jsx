@@ -7,7 +7,6 @@ const SkillForm = ({ skill, onSave, onCancel }) => {
     const [iconKey, setIconKey] = useState(skill?.iconKey ?? "");
     const [iconColor, setIconColor] = useState(skill?.iconColor ?? "");
 
-
     const [saving, setSaving] = useState(false);
 
     const handleSubmit = async () => {

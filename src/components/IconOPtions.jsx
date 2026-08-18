@@ -42,17 +42,19 @@ export const iconOptions = [
 
 export const categories = [
     { label: "All", value: "all" },
+    { label: "APIs", value: "api" },
     { label: "Programming Languages", value: "code" },
     { label: "Markup", value: "markup" },
     { label: "Scripting", value: "scripting" },
     { label: "Style Sheet", value: "stylesheet" },
-    { label: "Frameworks", value: "frameworks" },
+    { label: "Libraries/Frameworks", value: "frameworks" },
     { label: "DataBases", value: "database" },
-    { label: "Machine learning / Data Science", value: "machine"},
+    { label: "Machine Learning/Data Science", value: "machine"},
     { label: "Cybersecurity", value: "cybersecurity"},
     { label: "Backend", value: "backend" },
     { label: "Frontend", value: "frontend" },
     { label: "Hosting", value: "hosting" },
     { label: "Operating Systems", value: "os" },
     { label: "Tools", value: "tools" },
+    { label: "Other", value: "other" },
 ];

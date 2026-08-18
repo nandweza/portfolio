@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext(null);
 
-const API_URL = "http://localhost:3000/api"
+const API_URL = "https://portfolio-api-emkd.onrender.com/api"
 
 export function AuthProvider({ children }) {
     const [token, setToken] = useState(() => localStorage.getItem("token"));
