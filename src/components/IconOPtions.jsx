@@ -38,6 +38,7 @@ export const iconOptions = [
     { label: "Cybersecurity", value: "FaShieldAlt" },
     { label: "Data Science", value: "FaChartLine" },
     { label: "Tools", value: "FaTools"},
+    { label: "WordPress", value: "FaWordpress" },
 ]
 
 export const categories = [

@@ -9,15 +9,6 @@ const SkillForm = ({ skill, onSave, onCancel }) => {
 
     const [saving, setSaving] = useState(false);
 
-    // const handleCategoryChange = (e) => {
-    //     const values = Array.from(
-    //         e.target.selectedOptions,
-    //         option => option.value
-    //     );
-
-    //     setCategories(values);
-    // }
-
     const handleSubmit = async () => {
         if (!name.trim()) {
             alert("Name is required");

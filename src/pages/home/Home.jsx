@@ -140,8 +140,6 @@ const Home = () => {
                             </button>
                         )}
 
-                        
-
                         <button
                             className="btn btn-sm btn-outline-secondary"
                             onClick={logout}
@@ -182,7 +180,10 @@ const Home = () => {
                         ) : (
                                 
                             <div className="row min-vh-100 align-items-center g-3">
-                                <div className="col-12 col-md-7 d-flex flex-column justify-content-center align-content-center mb-4 mb-md-0 animated-text">
+                                <div 
+                                    className=
+                                    "col-12 col-md-7 d-flex flex-column justify-content-center align-content-center mb-4 mb-md-0 animated-text order-2 order-md-1 mobile-centered"
+                                >
                                     <div className="flex-column justify-content-center align-item-center">
                                         <h1>
                                             <span className="text-danger">I'm </span>
@@ -204,7 +205,7 @@ const Home = () => {
                                         </a>
                                     </div>
                                 </div>
-                                <div className="col-12 col-md-5 d-flex justify-content-center align-items-center position-relative">
+                                <div className="col-12 col-md-5 d-flex justify-content-center align-items-center position-relative order-1 order-md-2">
                                     <img
                                         src={homeData.image}
                                         alt={homeData.name}

@@ -19,6 +19,7 @@ import {
     FaChartLine,
     FaCode,
     FaTools,
+    FaWordpress
 } from "react-icons/fa";
 
 import {
@@ -66,6 +67,7 @@ export const skillIcons = {
     FaShieldAlt,
     FaChartLine,
     FaTools,
+    FaWordpress,
     SiTypescript,
     SiMongodb,
     SiMysql,

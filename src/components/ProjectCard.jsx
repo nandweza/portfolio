@@ -8,9 +8,9 @@ const ProjectCard = ({
     codeUrl,
 }) => {
     return (
-        <div className="card h-100 shadow-sm border-0">
+        <div className="card h-100 shadow-sm border-1">
             <div className="row g-0 h-100">
-                <div className="col-md-6">
+                <div className="col-md-6 border-end border-danger border-opacity-25">
                     <img
                         src={imgUrl}
                         alt={alt ?? title}
