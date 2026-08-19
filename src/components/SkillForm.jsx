@@ -3,11 +3,20 @@ import { iconOptions, categories } from "./IconOPtions";
 
 const SkillForm = ({ skill, onSave, onCancel }) => {
     const [name, setName] = useState(skill?.name ?? "");
-    const [category, setCategory] = useState(skill?.category ?? "");
+    const [category, setCategory] = useState(skill?.category ?? []);
     const [iconKey, setIconKey] = useState(skill?.iconKey ?? "");
     const [iconColor, setIconColor] = useState(skill?.iconColor ?? "");
 
     const [saving, setSaving] = useState(false);
+
+    // const handleCategoryChange = (e) => {
+    //     const values = Array.from(
+    //         e.target.selectedOptions,
+    //         option => option.value
+    //     );
+
+    //     setCategories(values);
+    // }
 
     const handleSubmit = async () => {
         if (!name.trim()) {
@@ -17,7 +26,7 @@ const SkillForm = ({ skill, onSave, onCancel }) => {
         setSaving(true);
         await onSave({
             name: name.trim(),
-            category: category.trim(),
+            category: category,
             iconKey: iconKey.trim(),
             iconColor: iconColor.trim(),
         });
@@ -38,9 +47,17 @@ const SkillForm = ({ skill, onSave, onCancel }) => {
 
             <label className="form-label small mb-1">Skill Category *</label>
             <select
+                multiple
                 className="form-control mb-2"
                 value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                onChange={(e) => {
+                    const values = Array.from(
+                        e.target.selectedOptions,
+                        option => option.value
+                    );
+
+                    setCategory(values);
+                }}
             >
                 <option value="">Select category</option>
                 {categories.map((category) => (

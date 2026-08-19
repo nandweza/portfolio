@@ -23,7 +23,7 @@ const Skills = () => {
     const filteredSkills = 
         category === "all" 
         ? skills 
-        : skills.filter(skill => skill.category === category);
+        : skills.filter(skill => skill.category.includes(category));
 
     // ------------------- READ ----------------------------
     const fetchSkills = useCallback(async () => {
@@ -43,12 +43,9 @@ const Skills = () => {
         fetchSkills();
     }, [fetchSkills]);
 
-    // ---------- WRITE (all require the token) ----------
+    // ---------- WRITE (require token) ----------
     const handleCreate = async (fields) => {
         try {
-
-            console.log("FIELDS BEING SENT:", fields);
-
             const res = await fetch(API_URL, {
                 method: "POST",
                 headers: {
