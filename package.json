@@ -6,7 +6,7 @@
   "scripts": {
     "predeploy": "npm run build",
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/copy-index.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },
