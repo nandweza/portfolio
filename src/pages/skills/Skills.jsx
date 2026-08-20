@@ -140,7 +140,7 @@ const Skills = () => {
                     </div>
                 )}
                 <SkillSkeleton />
-                <p className="text-center text-muted">No skills to display...</p>
+                <p className="text-center text-muted">Loading...</p>
                 <Footer />
             </>
         )

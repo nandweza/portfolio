@@ -158,7 +158,7 @@ const Projects = () => {
                     </div>
                 )}
                 <ProjectSkeleton />
-                <p className="text-center text-muted">No projects to display...</p>
+                <p className="text-center text-muted">Loading...</p>
                 <Footer />
             </>
         )
@@ -205,7 +205,7 @@ const Projects = () => {
                 )}
 
                 {!loading && !error && projects.length === 0 && (
-                    <p className="text-center text-muted">No projects yet.</p>
+                    <p className="text-center text-muted">No projects to display...</p>
                 )}
 
                 <div className="row g-4">
